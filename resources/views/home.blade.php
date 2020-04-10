@@ -27,6 +27,9 @@
             <a href="{{ url('/pharmacist/create')}}">Naujo vaistininko registravimas</a>
             <br>
             <a href="{{ url('/patient/create')}}">Naujo paciento registravimas</a>
+            <br>
+            <br>
+            <a href="{{ url('')}}">Priskirti pacienta gydytojui</a> --
         </div>
     </div>
 </div>

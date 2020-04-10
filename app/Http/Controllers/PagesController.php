@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Doctor;
+use App\Pharmacist;
 
 class PagesController extends Controller
 {
@@ -11,7 +13,10 @@ class PagesController extends Controller
     }
 
     public function employees() {
-        return view('pages.employees');
+
+        $pharmacists = Pharmacist::all();
+        $doctors = Doctor::all();
+        return view('pages.employees')->with('doctors', $doctors)->with('pharmacists', $pharmacists);
     }
 
     public function contacts() {
