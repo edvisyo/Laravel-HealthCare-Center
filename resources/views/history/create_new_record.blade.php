@@ -2,6 +2,9 @@
 @section('content')
 <div class="container">
     <h3>Paciento registravimas vizitui</h3>
+
+    <a href={{ url('/doctors/index') }}>Gryzti</a>
+
     {!! Form::open(['action' => 'VisitsRegisterController@store', 'method' => 'POST']) !!}
     <div class="form-row">
         <div class="form-group col-md-4">
@@ -42,6 +45,10 @@
     <div class="form-group">
         {{ Form::label('description', 'Vizito aprašymas:')}}
         {{ Form::textarea('description', '', ['class' => 'form-control', 'placeholder' => 'Trumpas vizito aprašymas...', 'autocomplete' => 'off'])}}
+    </div>
+    <div class="form-group col-md-6">
+        {{ Form::label('visit_date', 'Apsilankymo data:')}}
+        {{ Form::date('visit_date', '', ['class' => 'form-control'])}}
     </div>
     {{ Form::submit('Registruoti', ['class' => 'btn btn-primary'])}}
     {!! Form::close() !!} 

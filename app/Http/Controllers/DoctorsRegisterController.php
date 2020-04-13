@@ -47,22 +47,22 @@ class DoctorsRegisterController extends Controller
             'password' => 'required'
         ]);
 
+        //Gydytojo registracija i 'users' lentele:
+        $doctorLog = new Admin;
+        $doctorLog->email = $request->input('email');
+        $doctorLog->password = Hash::make($request->input('password'));
+        $doctorLog->save();
+        $lastId = $doctorLog->id;
+
         //Gydytojo registracija i 'doctors' lentele:
         $doctor = new Doctor;
+        $doctor->user_id = $lastId;
         $doctor->name = $request->input('name');
         $doctor->lastname = $request->input('lastname');
         if(empty($doctor->specialization = $request->input('specialization'))) {
         $doctor->other_specialization = $request->input('other_specialization');
         }
         $doctor->save();
-
-        //Gydytojo registracija i 'users' lentele:
-        $doctorLog = new Admin;
-        $doctorLog->role_id = 2;
-        $doctorLog->email = $request->input('email');
-        $doctorLog->password = Hash::make($request->input('password'));
-        $doctorLog->save();
-        $lastId = $doctorLog->id;
 
         //Gydytojo registracija i 'role_users' lentele:
         $doctorRole = new Role_user;

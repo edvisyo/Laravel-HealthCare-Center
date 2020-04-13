@@ -15,6 +15,7 @@ class CreatePharmacistsTable extends Migration
     {
         Schema::create('pharmacists', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id');
             $table->string('name');
             $table->string('lastname');
             $table->string('work');

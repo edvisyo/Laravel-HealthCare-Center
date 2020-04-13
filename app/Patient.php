@@ -9,6 +9,6 @@ class Patient extends Model
     protected $table = 'patients';
 
     protected $fillable = [
-        'personal_code', 'birthdate', 'name', 'lastname'
+        'user_id', 'personal_code', 'birthdate', 'name', 'lastname'
     ];
 }

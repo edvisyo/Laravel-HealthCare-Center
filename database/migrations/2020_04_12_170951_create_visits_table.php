@@ -23,8 +23,7 @@ class CreateVisitsTable extends Migration
             $table->string('visit_compensation');
             $table->string('is_visit_repeated');
             $table->mediumText('visit_description');
-            $table->string('doctor_name');
-            $table->string('doctor_lastname');
+            $table->bigInteger('doctor_id');
             $table->timestamps();
         });
     }

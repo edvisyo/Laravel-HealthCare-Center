@@ -2,6 +2,9 @@
 @section('content')
 <div class="container">
     <h3>Naujo Paciento registravimas</h3>
+
+    <a href={{ url('/home') }}>Gryzti</a>
+
 {!! Form::open(['action' => 'PatientsRegisterController@store', 'method' => 'POST']) !!}
 <div class="form-group">
     {{ Form::label('personal_code', 'Paciento asmens kodas:')}}

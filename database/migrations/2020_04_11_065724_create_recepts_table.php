@@ -24,8 +24,7 @@ class CreateReceptsTable extends Migration
             $table->mediumText('description');
             $table->date('validity')->nullable();
             $table->string('termless')->nullable();
-            $table->string('doctor_name');
-            $table->string('doctor_lastname');
+            $table->bigInteger('doctor_id');
             $table->timestamps();
         });
     }

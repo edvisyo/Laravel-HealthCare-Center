@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Admin;
+use App\Role_user;
 
 class AdminRegisterController extends Controller
 {
@@ -46,6 +47,13 @@ class AdminRegisterController extends Controller
         $admin->email = $request->input('email');
         $admin->password = Hash::make($request->input('password'));
         $admin->save();
+        $lastId = $admin->id;
+
+        $adminRole = new Role_user;
+        $adminRole->role_id = 1;
+        $adminRole->user_id = $lastId;
+        $adminRole->save();
+
 
         return redirect('/home')->with('success', 'Uzregistruota');
     }

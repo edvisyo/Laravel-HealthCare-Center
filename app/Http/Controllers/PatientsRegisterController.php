@@ -45,21 +45,21 @@ class PatientsRegisterController extends Controller
             'lastname' => 'required'
         ]);
 
+        //Gydytojo registracija i 'users' lentele:
+        $patientLog = new Admin;
+        $patientLog->email = $request->input('email');
+        $patientLog->password = Hash::make($request->input('password'));
+        $patientLog->save();
+        $lastId = $patientLog->id;
+
         //Gydytojo registracija i 'doctors' lentele:
         $patient = new Patient;
+        $patient->user_id = $lastId;
         $patient->personal_code = $request->input('personal_code');
         $patient->birthdate = $request->input('birthdate');
         $patient->name = $request->input('name');
         $patient->lastname = $request->input('lastname');
         $patient->save();
-
-        //Gydytojo registracija i 'users' lentele:
-        $patientLog = new Admin;
-        $patientLog->role_id = 2;
-        $patientLog->email = $request->input('email');
-        $patientLog->password = Hash::make($request->input('password'));
-        $patientLog->save();
-        $lastId = $patientLog->id;
 
         //Gydytojo registracija i 'role_users' lentele:
         $patientRole = new Role_user;

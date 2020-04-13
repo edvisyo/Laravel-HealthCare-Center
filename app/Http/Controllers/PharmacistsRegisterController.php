@@ -46,20 +46,20 @@ class PharmacistsRegisterController extends Controller
             'password' => 'required'
         ]);
 
-        //Gydytojo registracija i 'doctors' lentele:
-        $pharmacist = new Pharmacist;
-        $pharmacist->name = $request->input('name');
-        $pharmacist->lastname = $request->input('lastname');
-        $pharmacist->work = $request->input('work');
-        $pharmacist->save();
-
         //Gydytojo registracija i 'users' lentele:
         $pharmacistLog = new Admin;
-        $pharmacistLog->role_id = 3;
         $pharmacistLog->email = $request->input('email');
         $pharmacistLog->password = Hash::make($request->input('password'));
         $pharmacistLog->save();
         $lastId = $pharmacistLog->id;
+
+        //Gydytojo registracija i 'doctors' lentele:
+        $pharmacist = new Pharmacist;
+        $pharmacist->user_id = $lastId;
+        $pharmacist->name = $request->input('name');
+        $pharmacist->lastname = $request->input('lastname');
+        $pharmacist->work = $request->input('work');
+        $pharmacist->save();
 
         //Gydytojo registracija i 'role_users' lentele:
         $pharmacistRole = new Role_user;

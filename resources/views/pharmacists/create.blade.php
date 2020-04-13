@@ -2,6 +2,9 @@
 @section('content')
     <div class="container">
         <h3>Naujo Vaistininko registravimas</h3>
+
+        <a href={{ url('/home') }}>Gryzti</a>
+
     {!! Form::open(['action' => 'PharmacistsRegisterController@store', 'method' => 'POST']) !!}
     <div class="form-group">
         {{ Form::label('name', 'Vaistininko vardas:')}}

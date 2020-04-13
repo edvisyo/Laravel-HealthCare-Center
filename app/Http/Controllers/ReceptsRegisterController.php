@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Recept;
+use Auth;
 
 class ReceptsRegisterController extends Controller
 {
@@ -67,9 +68,10 @@ class ReceptsRegisterController extends Controller
         if(empty($recept->validity = $request->input('expired'))) {
             $recept->termless = $request->input('termless');
         }
+
+        $user_id = Auth::user()->id;
         
-        $recept->doctor_name = $a;
-        $recept->doctor_lastname = $b;
+        $recept->doctor_id = $user_id;
         $recept->save();
 
         return redirect('/recept/create')->with('success', 'Uzregistruota');

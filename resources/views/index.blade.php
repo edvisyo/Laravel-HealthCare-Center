@@ -94,8 +94,8 @@
                 <div class="col">
                     <div class="beds">
                             {{-- <div style="border: 2px solid white; border-radius: 50px;"> --}}
-                        <img src="images/bed.png" style="max-width: 100%; width: 60px; max-width: 100%; width: 90px; border: 2px solid white; border-radius: 50px; padding: 15px 15px 15px 15px;" alt=""> 
-                            {{-- </div> --}}
+                        <img src="images/bed.png" style="max-width: 100%; width: 60px; max-width: 100%; width: 90px; border: 2px solid white; border-radius: 50px; padding: 15px 15px 15px 15px;" alt="">     
+                        {{-- </div> --}}
                         <h3><strong>2314</strong></h3>
                         <h5>LOVOS</h5>
                     </div>

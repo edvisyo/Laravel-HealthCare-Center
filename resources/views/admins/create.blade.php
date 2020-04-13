@@ -2,6 +2,9 @@
 @section('content')
 <div class="container">
     <h3>Naujo Administratoriaus registravimas</h3>
+
+    <a href={{ url('/home') }}>Gryzti</a>
+
     {!! Form::open(['action' => 'AdminRegisterController@store', 'method' => 'POST']) !!}
     <div class="form-group">
         {{ Form::label('email', 'Elektroninio pasto adresas:')}}

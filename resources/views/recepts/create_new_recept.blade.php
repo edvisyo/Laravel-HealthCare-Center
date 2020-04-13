@@ -2,6 +2,9 @@
 @section('content')
 <div class="container">
     <h3>Naujo recepto išrašymas</h3>
+
+    <a href={{ url('/doctors/index') }}>Gryzti</a>
+
     {!! Form::open(['action' => 'ReceptsRegisterController@store', 'method' => 'POST']) !!}
     <div class="form-row">
         <div class="form-group col-md-4">

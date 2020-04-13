@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Visit;
+use Auth;
 
 class VisitsRegisterController extends Controller
 {
@@ -50,7 +51,8 @@ class VisitsRegisterController extends Controller
             'duration' => 'required',
             'compensation' => 'required',
             'repeated' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'visit_date' => 'required'
         ]);
 
         $visit = new Visit;
@@ -62,8 +64,11 @@ class VisitsRegisterController extends Controller
         $visit->visit_compensation = $request->input('compensation');
         $visit->is_visit_repeated = $request->input('repeated');
         $visit->visit_description = $request->input('description');
-        $visit->doctor_name = $request->input('');
-        $visit->doctor_lastname = $request->input('');
+        $visit->visit_date = $request->input('visit_date');
+
+        $user_id = Auth::user()->id;
+
+        $visit->doctor_id = $user_id;
         $visit->save();
 
         return redirect('/visit/create')->with('success', 'Uzregistruota');

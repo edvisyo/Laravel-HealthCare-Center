@@ -9,6 +9,6 @@ class Pharmacist extends Model
     protected $table = 'pharmacists';
 
     protected $fillable = [
-        'name', 'lastname', 'work'
+        'user_id', 'name', 'lastname', 'work'
     ];
 }
