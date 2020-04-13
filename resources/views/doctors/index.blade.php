@@ -3,14 +3,14 @@
     <div class="container">
         Daktaro puslapis
         <br>
-        <a href="{{ url('/') }}">Sukurti nauja ligos irasa</a> --
+        <a href="{{ url('/visit/create') }}">Registruoti pacientą vizitui</a> 
         <br>
-        <a href="{{ url('/') }}">Israsyti nauja recepta</a> --
+        <a href="{{ url('/recept/create') }}">Išrašyti naują receptą</a> 
         <br>
-        <a href="{{ url('/') }}">Perziureti savo pacientu sarasa</a> --
+        <a href="{{ url('/') }}">Peržiūrėti savo pacientų sąrašą</a> --
         <br>
-        <a href="{{ url('/') }}">Perziureti darbo dienu statistika</a> --
+        <a href="{{ url('/') }}">Peržiūrėti darbo dienų statistiką</a> --
         <br> 
-        <button type="button" class="btn btn-warning">Eksportuoti pacientu sarasa</button> --
+        <button type="button" class="btn btn-warning">Eksportuoti pacientų sąrašą</button> --
     </div>
 @endsection

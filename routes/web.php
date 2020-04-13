@@ -34,6 +34,8 @@ Route::resource('admin', 'AdminRegisterController');
 Route::resource('doctor', 'DoctorsRegisterController');
 Route::resource('pharmacist', 'PharmacistsRegisterController');
 Route::resource('patient', 'PatientsRegisterController');
+Route::resource('recept', 'ReceptsRegisterController');
+Route::resource('visit', 'VisitsRegisterController');
 
 Auth::routes();
 

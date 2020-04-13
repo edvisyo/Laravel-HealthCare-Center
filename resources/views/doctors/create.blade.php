@@ -33,7 +33,7 @@
     <hr>
     <div class="form-group">
         {{ Form::label('email', 'Elektroninio pasto adresas:')}}
-        {{ Form::text('email', '', ['class' => 'form-control', 'placeholder' => 'El.Pastas', 'autocomplete' => 'off'])}}
+        {{ Form::email('email', '', ['class' => 'form-control', 'placeholder' => 'El.Pastas', 'autocomplete' => 'off'])}}
     </div>
     <div class="form-group">
         {{ Form::label('password', 'Slaptazodis:')}}
