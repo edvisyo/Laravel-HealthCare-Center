@@ -2,11 +2,15 @@
 @section('content')
     <div class="container">
         <div class="recept-nav" style="padding-top: 15px; padding-bottom: 20px;">
-        <a href="">Perziureti receptu sarasa</a> --
+        Jums israsytus receptus galite rasti: <a href="{{ url('/recepts') }}">Peržiūrėti receptų sąrašą</a> 
         </div>
+        
+
+        <h3>Jusu paskirtu vizitu sarasas</h3>
+
             @if(count($visits) > 0)
             @foreach($visits as $visit)
-            <div class="card">
+            <div class="card" style="margin-bottom: 45px;">
                 <div class="card-header">
                     <h3>Paciento vardas, pavarde: {{ $visit->patient_name }} {{ $visit->patient_lastname }}</h3>
                 </div>
@@ -17,13 +21,9 @@
 
                     <h5>Ligos kodas:</h5> 
                     <p>{{ $visit->TLK_10 }}</p>
-                    @if(count($doc) > 0)
-                    <div class="row justify-content-end">
-                        @foreach($doc as $doctor)
-                        <footer class="blockquote-footer">Gydytojas: {{ $doctor->name }} {{ $doctor->lastname }} <br> Registravimo data: {{ $visit->created_at }}</footer>
-                        @endforeach
+                    <div class="row justify-content-end" style="margin-right: 3px;">
+                        <footer class="blockquote-footer">Gydytojas: {{ $visit->doctor_name }} {{ $visit->doctor_lastname }} <br> Registravimo data: {{ Carbon\Carbon::parse($visit->created_at)->format('Y-m-d H:i') }}</footer>
                     </div>
-                @endif
                    </blockquote>
                 </div>
             </div>

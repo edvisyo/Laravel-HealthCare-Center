@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Visit;
 use Auth;
+use DB;
 
 class VisitsRegisterController extends Controller
 {
@@ -43,6 +44,14 @@ class VisitsRegisterController extends Controller
      */
     public function store(Request $request)
     {
+
+        $doc_id = Auth::user()->id;
+        $doc_info = DB::select("SELECT name, lastname FROM doctors WHERE user_id = '$doc_id'");
+        foreach($doc_info as $info) {
+            $doc_name = $info->name;
+            $doc_lastname = $info->lastname;
+        }
+
         $this->validate($request, [
             'name' => 'required',
             'lastname' => 'required',
@@ -65,10 +74,8 @@ class VisitsRegisterController extends Controller
         $visit->is_visit_repeated = $request->input('repeated');
         $visit->visit_description = $request->input('description');
         $visit->visit_date = $request->input('visit_date');
-
-        $user_id = Auth::user()->id;
-
-        $visit->doctor_id = $user_id;
+        $visit->doctor_name = $doc_name;
+        $visit->doctor_lastname = $doc_lastname;
         $visit->save();
 
         return redirect('/visit/create')->with('success', 'Uzregistruota');

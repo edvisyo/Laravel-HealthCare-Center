@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Visit;
+use App\Recept;
 use App\Patient;
 use App\Doctor;
 use Auth;
 use DB;
+//use Carbon\Carbon;
+//use DateTime;
 
-class PatientsController extends Controller
+
+class ReceptsController extends Controller
 {
 
     public function __construct() {
@@ -25,7 +28,6 @@ class PatientsController extends Controller
      */
     public function index()
     {
-
         $user_id = Auth::user()->id;
         $patients = DB::select("SELECT name, lastname, birthdate FROM patients WHERE user_id = $user_id");
         foreach($patients as $patient) {
@@ -34,24 +36,21 @@ class PatientsController extends Controller
             $birthdate = $patient->birthdate;
         }
 
+        //$dateTime = new DateTime();
+        //$dateTime->format('Y-m-d');
+
         // $visits = Visit::orderBy('created_at', 'desc')->get();
-        $visits = DB::select("SELECT * FROM visits WHERE patient_name = '$name' AND patient_lastname = '$lastname' AND patient_birthdate = '$birthdate' ORDER BY visit_date ASC");
-        //foreach($visits as $doctor_info) {
-            //$doctor = $doctor_info->doctor_id;
-        //}
+        $recepts = DB::select("SELECT * FROM recepts WHERE patient_name = '$name' AND patient_lastname = '$lastname' AND patient_birthdate = '$birthdate' ORDER BY created_at DESC");
 
         $title = '';
 
-        if(!empty($visits)) {
-            //$doc = DB::select("SELECT name, lastname FROM doctors WHERE user_id = $doctor");
-            return view('patients.index')->with('visits', $visits);
+        if(!empty($recepts)) {
+            return view('recepts.index')->with('recepts', $recepts);
         }
-        else if(empty($visits)) {
-                $title = 'Šiuo metu jums priskirtų  vizitų  nėra';
-                return view('patients.index')->with('visits', $visits)->with('title', $title);
+        else if(empty($recepts)) {
+                $title = 'Šiuo metu jums išrašytų  receptų  nėra';
+                return view('recepts.index')->with('recepts', $recepts)->with('title', $title);
         }
-        //return Visit::where('doctor_id', 3)->get();
-        //return view('patients.index')->with('visits', $visits)->with('doc', $doc)->with('title', $title);
     }
 
     /**
@@ -83,9 +82,8 @@ class PatientsController extends Controller
      */
     public function show($id)
     {
-        $visit = Visit::find($id);
-        // return Visit::where('doctor_id', 3)->get();
-        return view('patients.visit_details')->with('visit', $visit);
+        $recepts = Recept::find($id);
+        return view('recepts.recept_details')->with('recepts', $recepts);
     }
 
     /**

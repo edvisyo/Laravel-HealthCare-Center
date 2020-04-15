@@ -9,6 +9,6 @@ class Visit extends Model
     protected $table = 'visits';
 
     protected $fillable = [
-        'patient_name', 'patient_lastname', 'patient_birthdate', 'TLK_10', 'visit_duration', 'visit_compensation', 'is_visit_repeated', 'visit_description', 'visit_date', 'doctor_id'
+        'patient_name', 'patient_lastname', 'patient_birthdate', 'TLK_10', 'visit_duration', 'visit_compensation', 'is_visit_repeated', 'visit_description', 'visit_date', 'doctor_name', 'doctor_lastname'
     ];
 }

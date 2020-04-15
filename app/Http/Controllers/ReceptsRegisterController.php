@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Recept;
 use Auth;
+use DB;
 
 class ReceptsRegisterController extends Controller
 {
@@ -43,6 +44,14 @@ class ReceptsRegisterController extends Controller
      */
     public function store(Request $request)
     {
+
+        $doc_id = Auth::user()->id;
+        $doc_info = DB::select("SELECT name, lastname FROM doctors WHERE user_id = '$doc_id'");
+        foreach($doc_info as $info) {
+            $doc_name = $info->name;
+            $doc_lastname = $info->lastname;
+        }
+
         $this->validate($request, [
             'name' => 'required',
             'lastname' => 'required',
@@ -55,8 +64,6 @@ class ReceptsRegisterController extends Controller
             //'termless' => 'required'
         ]);
 
-        //$doctor_id = Auth::user()->id;
-
         $recept = new Recept;
         $recept->patient_name = $request->input('name');
         $recept->patient_lastname = $request->input('lastname');
@@ -68,10 +75,9 @@ class ReceptsRegisterController extends Controller
         if(empty($recept->validity = $request->input('expired'))) {
             $recept->termless = $request->input('termless');
         }
-
-        $user_id = Auth::user()->id;
         
-        $recept->doctor_id = $user_id;
+        $recept->doctor_name = $doc_name;
+        $recept->doctor_lastname = $doc_lastname;
         $recept->save();
 
         return redirect('/recept/create')->with('success', 'Uzregistruota');
