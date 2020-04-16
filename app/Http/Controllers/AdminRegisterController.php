@@ -43,7 +43,6 @@ class AdminRegisterController extends Controller
         ]);
 
         $admin = new Admin;
-        //$admin->role_id = 1;
         $admin->email = $request->input('email');
         $admin->password = Hash::make($request->input('password'));
         $admin->save();

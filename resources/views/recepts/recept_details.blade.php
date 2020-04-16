@@ -8,7 +8,7 @@
         <h3>{{ $recepts->substance }}</h3>
 
 
-        <table class="table table-hover">
+        <table class="table table-bordered">
             <thead>
               <tr>
                 <th scope="col">Paciento vardas, pavarde: {{ $recepts->patient_name }} {{ $recepts->patient_lastname }}</th>

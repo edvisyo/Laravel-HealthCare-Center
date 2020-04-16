@@ -30,7 +30,8 @@
                </blockquote>
             </div>
         </div>
-        @endforeach 
+        @endforeach  
+        {{ $recepts->links() }} 
         @else
         <div class="alert alert-dark" role="alert">
             {{ $title }}

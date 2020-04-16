@@ -28,6 +28,7 @@
                 </div>
             </div>
             @endforeach
+            {{ $visits->links() }}
             @else
             <div class="alert alert-dark" role="alert">
                 {{ $title }}

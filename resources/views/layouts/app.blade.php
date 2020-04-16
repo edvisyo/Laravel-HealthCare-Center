@@ -28,7 +28,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm" id="main_nav">
             <div class="container-fluid">
                 <i class="fas fa-heartbeat fa-2x" style="padding-right: 8px; color: white;"></i>
                 <a class="navbar-brand" href="{{ url('/') }}" style="color: white;">

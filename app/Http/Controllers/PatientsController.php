@@ -35,7 +35,8 @@ class PatientsController extends Controller
         }
 
         // $visits = Visit::orderBy('created_at', 'desc')->get();
-        $visits = DB::select("SELECT * FROM visits WHERE patient_name = '$name' AND patient_lastname = '$lastname' AND patient_birthdate = '$birthdate' ORDER BY visit_date ASC");
+        //$visits = DB::select("SELECT * FROM visits WHERE patient_name = '$name' AND patient_lastname = '$lastname' AND patient_birthdate = '$birthdate' ORDER BY visit_date ASC");
+        $visits = DB::table('visits')->where(['patient_name' => $name, 'patient_lastname' => $lastname, 'patient_birthdate' => $birthdate])->orderBy('visit_date', 'ASC')->paginate(4);
         //foreach($visits as $doctor_info) {
             //$doctor = $doctor_info->doctor_id;
         //}

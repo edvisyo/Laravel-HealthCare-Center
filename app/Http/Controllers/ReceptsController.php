@@ -40,8 +40,9 @@ class ReceptsController extends Controller
         //$dateTime->format('Y-m-d');
 
         // $visits = Visit::orderBy('created_at', 'desc')->get();
-        $recepts = DB::select("SELECT * FROM recepts WHERE patient_name = '$name' AND patient_lastname = '$lastname' AND patient_birthdate = '$birthdate' ORDER BY created_at DESC");
-
+        //$recepts = DB::select("SELECT * FROM recepts WHERE patient_name = '$name' AND patient_lastname = '$lastname' AND patient_birthdate = '$birthdate' ORDER BY created_at DESC")->paginate(4);
+        $recepts = DB::table('recepts')->where(['patient_name' => $name, 'patient_lastname' => $lastname, 'patient_birthdate' => $birthdate])->orderBy('created_at', 'DESC')->paginate(4);
+        //$recepts = $recepts->get();
         $title = '';
 
         if(!empty($recepts)) {
