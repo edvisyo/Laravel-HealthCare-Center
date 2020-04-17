@@ -29,7 +29,7 @@
             <a href="{{ url('/patient/create')}}">Naujo paciento registravimas</a>
             <br>
             <br>
-            <a href="{{ url('')}}">Priskirti pacienta gydytojui</a> --
+            <a href="{{ url('/doctor_patient/create')}}">Priskirti pacienta gydytojui</a> 
         </div>
     </div>
 </div>

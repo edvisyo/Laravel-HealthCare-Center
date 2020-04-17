@@ -41,15 +41,9 @@ class PatientsController extends Controller
             //$doctor = $doctor_info->doctor_id;
         //}
 
-        $title = '';
-
         if(!empty($visits)) {
             //$doc = DB::select("SELECT name, lastname FROM doctors WHERE user_id = $doctor");
             return view('patients.index')->with('visits', $visits);
-        }
-        else if(empty($visits)) {
-                $title = 'Šiuo metu jums priskirtų  vizitų  nėra';
-                return view('patients.index')->with('visits', $visits)->with('title', $title);
         }
         //return Visit::where('doctor_id', 3)->get();
         //return view('patients.index')->with('visits', $visits)->with('doc', $doc)->with('title', $title);

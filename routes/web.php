@@ -27,6 +27,11 @@ Route::get('/kontaktai', 'PagesController@contacts')->name('kontaktai');
 Route::get('/paslaugos', 'PagesController@services')->name('paslaugos');
 //Route::get('/create', 'PagesController@newAdmin')->name('create');
 Route::get('doctors/index', 'DoctorsController@index');
+route::get('doctors/patients_list', 'PatientsListController@index');
+Route::get('doctors/patients_list/recepts/{id}', 'PatientsListController@show');
+
+Route::get('doctors/patients_list/recepts/recept_details/{id}', 'PatientsListController@receptDetails');
+
 Route::get('pharmacists/index', 'PharmacistsController@index');
 Route::get('patients/index', 'PatientsController@index');
 
@@ -38,6 +43,8 @@ Route::resource('patients', 'PatientsController');
 Route::resource('recept', 'ReceptsRegisterController');
 Route::resource('visit', 'VisitsRegisterController');
 Route::resource('recepts', 'ReceptsController');
+Route::resource('doctor_patient', 'AssignPatientToDoctorController');
+Route::resource('patientlist', 'PatientsListController');
 
 Auth::routes();
 

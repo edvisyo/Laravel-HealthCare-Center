@@ -3,22 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Doctor_patient;
+// use App\PatientList;
 use App\Recept;
-use App\Patient;
-use App\Doctor;
+// use App\Doctor;
 use Auth;
 use DB;
-//use Carbon\Carbon;
-//use DateTime;
 
-
-class ReceptsController extends Controller
+class PatientsListController extends Controller
 {
 
     public function __construct() {
-
         $this->middleware('auth');
-        $this->middleware('patient');
+        $this->middleware('doctor');
     }
 
     /**
@@ -28,25 +25,10 @@ class ReceptsController extends Controller
      */
     public function index()
     {
-        $user_id = Auth::user()->id;
-        $patients = DB::select("SELECT name, lastname, birthdate FROM patients WHERE user_id = $user_id");
-        foreach($patients as $patient) {
-            $name = $patient->name;
-            $lastname = $patient->lastname;
-            $birthdate = $patient->birthdate;
-        }
-
-        //$dateTime = new DateTime();
-        //$dateTime->format('Y-m-d');
-
-        // $visits = Visit::orderBy('created_at', 'desc')->get();
-        //$recepts = DB::select("SELECT * FROM recepts WHERE patient_name = '$name' AND patient_lastname = '$lastname' AND patient_birthdate = '$birthdate' ORDER BY created_at DESC")->paginate(4);
-        $recepts = DB::table('recepts')->where(['patient_name' => $name, 'patient_lastname' => $lastname, 'patient_birthdate' => $birthdate])->orderBy('created_at', 'DESC')->paginate(4);
-        //$recepts = $recepts->get();
-
-        if(!empty($recepts)) {
-            return view('recepts.index')->with('recepts', $recepts);
-        }
+        $current_doc_id = Auth::user()->id;
+        $doctor_patients = DB::table('doctor_patients')->where(['doctor_id' => $current_doc_id]);
+        $doctor_patients = $doctor_patients->get();
+        return view('doctors.patients_list')->with('doctor_patients', $doctor_patients);
     }
 
     /**
@@ -78,8 +60,23 @@ class ReceptsController extends Controller
      */
     public function show($id)
     {
-        $recepts = Recept::find($id);
-        return view('recepts.recept_details')->with('recepts', $recepts);
+        $patient = Doctor_patient::find($id)->where(['id' => $id])->get();
+        foreach($patient as $pat) {
+            $name = $pat->patient_name;
+            $lastname = $pat->patient_lastname;
+            $birthdate = $pat->patient_birthdate;
+        }
+
+        $recepts = DB::table('recepts')->where(['patient_name' => $name, 'patient_lastname' => $lastname, 'patient_birthdate' => $birthdate])->orderBy('created_at', 'DESC')->paginate(6);
+        return view('doctors.patient_recepts')->with('recepts', $recepts)->with('name', $name)->with('lastname', $lastname);
+    }
+
+
+    public function receptDetails($id) {
+
+        //return Recept::find($id)->where(['id' => $id])->get();
+        $recept_detail = Recept::find($id)->where(['id' => $id])->get();
+        return view('doctors.patient_recept_details')->with('recept_detail', $recept_detail);
     }
 
     /**

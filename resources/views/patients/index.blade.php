@@ -31,7 +31,7 @@
             {{ $visits->links() }}
             @else
             <div class="alert alert-dark" role="alert">
-                {{ $title }}
+                Šiuo metu jums priskirtų  vizitų  nėra 
             </div>
         @endif 
     </div>

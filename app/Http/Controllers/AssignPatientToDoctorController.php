@@ -3,24 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Recept;
-use App\Patient;
+use App\Doctor_patient;
 use App\Doctor;
-use Auth;
-use DB;
-//use Carbon\Carbon;
-//use DateTime;
 
-
-class ReceptsController extends Controller
+class AssignPatientToDoctorController extends Controller
 {
-
-    public function __construct() {
-
-        $this->middleware('auth');
-        $this->middleware('patient');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -28,25 +15,7 @@ class ReceptsController extends Controller
      */
     public function index()
     {
-        $user_id = Auth::user()->id;
-        $patients = DB::select("SELECT name, lastname, birthdate FROM patients WHERE user_id = $user_id");
-        foreach($patients as $patient) {
-            $name = $patient->name;
-            $lastname = $patient->lastname;
-            $birthdate = $patient->birthdate;
-        }
-
-        //$dateTime = new DateTime();
-        //$dateTime->format('Y-m-d');
-
-        // $visits = Visit::orderBy('created_at', 'desc')->get();
-        //$recepts = DB::select("SELECT * FROM recepts WHERE patient_name = '$name' AND patient_lastname = '$lastname' AND patient_birthdate = '$birthdate' ORDER BY created_at DESC")->paginate(4);
-        $recepts = DB::table('recepts')->where(['patient_name' => $name, 'patient_lastname' => $lastname, 'patient_birthdate' => $birthdate])->orderBy('created_at', 'DESC')->paginate(4);
-        //$recepts = $recepts->get();
-
-        if(!empty($recepts)) {
-            return view('recepts.index')->with('recepts', $recepts);
-        }
+        //
     }
 
     /**
@@ -56,7 +25,8 @@ class ReceptsController extends Controller
      */
     public function create()
     {
-        //
+        $doctor_id = Doctor::all();
+        return view('patients_doctors.assign_to_doctor')->with('doctor_id', $doctor_id);
     }
 
     /**
@@ -67,7 +37,22 @@ class ReceptsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'patient_name' => 'required',
+            'patient_lastname' => 'required',
+            'patient_birthdate' => 'required',
+            'doctor_id' => 'required'
+        ]);
+
+        $patient = new Doctor_patient;
+        $patient->patient_name = $request->input('patient_name');
+        $patient->patient_lastname = $request->input('patient_lastname');
+        $patient->patient_birthdate = $request->input('patient_birthdate');
+        $patient->doctor_id = $request->input('doctor_id');
+        $patient->save();
+
+        return redirect('/doctor_patient/create')->with('success', 'Uzregistruota');
+        
     }
 
     /**
@@ -78,8 +63,7 @@ class ReceptsController extends Controller
      */
     public function show($id)
     {
-        $recepts = Recept::find($id);
-        return view('recepts.recept_details')->with('recepts', $recepts);
+        //
     }
 
     /**

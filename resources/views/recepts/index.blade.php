@@ -34,7 +34,7 @@
         {{ $recepts->links() }} 
         @else
         <div class="alert alert-dark" role="alert">
-            {{ $title }}
+            Šiuo metu jums išrašytų receptų  nėra
         </div>
     @endif 
 </div>
