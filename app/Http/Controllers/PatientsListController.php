@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Doctor_patient;
 // use App\PatientList;
 use App\Recept;
+use App\Visit;
 // use App\Doctor;
 use Auth;
 use DB;
@@ -36,9 +37,16 @@ class PatientsListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $patient = Doctor_patient::find($id)->where(['id' => $id])->get();
+        foreach($patient as $pat) {
+            $name = $pat->patient_name;
+            $lastname = $pat->patient_lastname;
+            $birthdate = $pat->patient_birthdate;
+        }
+
+        return view('doctors.fast_history_record')->with('name', $name)->with('lastname', $lastname)->with('birthdate', $birthdate);
     }
 
     /**
@@ -47,9 +55,38 @@ class PatientsListController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        $doc_id = Auth::user()->id;
+        $doc_info = DB::select("SELECT name, lastname FROM doctors WHERE user_id = '$doc_id'");
+        foreach($doc_info as $info) {
+            $doc_name = $info->name;
+            $doc_lastname = $info->lastname;
+        }
+
+        $this->validate($request, [
+            'tlk_10' => 'required'
+        ]);
+
+        $visit = new Visit;
+        $visit->patient_name = $request->input('patient_name');
+        $visit->patient_lastname = $request->input('patient_lastname');
+        $visit->patient_birthdate = $request->input('patient_birthdate');
+        $visit->TLK_10 = $request->input('tlk_10');
+        $visit->visit_duration = $request->input('duration');
+        $visit->visit_compensation = $request->input('compensation');
+        $visit->is_visit_repeated = $request->input('repeated');
+        $visit->visit_description = $request->input('description');
+        $visit->visit_date = $request->input('visit_date');
+        $visit->doctor_name = $doc_name;
+        $visit->doctor_lastname = $doc_lastname;
+        $visit->save();
+
+        //return redirect('/doctors/patients_list/create_record/2')->with('success', 'Uzregistruota');
+        //return redirect('/doctors/patients_list/create_record')->route('fast_history_record', ['id' => 2]);
+        //return redirect('/doctors/patients_list/create_record')->action('PatientsListController@store');
+
+        return redirect('doctors/patients_list')->with('success', 'Uzregistruota'); //nepatinka route'as!!!
     }
 
     /**
@@ -77,6 +114,75 @@ class PatientsListController extends Controller
         //return Recept::find($id)->where(['id' => $id])->get();
         $recept_detail = Recept::find($id)->where(['id' => $id])->get();
         return view('doctors.patient_recept_details')->with('recept_detail', $recept_detail);
+    }
+
+
+    // public function createNewRecord(Request $request, $id) {
+
+    //     $patient = Doctor_patient::find($id)->where(['id' => $id])->get();
+    //     foreach($patient as $pat) {
+    //         $name = $pat->patient_name;
+    //         $lastname = $pat->patient_lastname;
+    //         $birthdate = $pat->patient_birthdate;
+    //     }
+
+    //     //$this->validate($request, [
+    //         //'tlk_10' => 'required'
+    //      //]);
+
+    //     return view('doctors.fast_history_record')->with('name', $name)->with('lastname', $lastname)->with('birthdate', $birthdate);
+
+    // }
+
+    public function createRecept($id) {
+        $patient = Doctor_patient::find($id)->where(['id' => $id])->get();
+        foreach($patient as $pat) {
+            $name = $pat->patient_name;
+            $lastname = $pat->patient_lastname;
+            $birthdate = $pat->patient_birthdate;
+        }
+
+        return view('doctors.fast_recept_record')->with('name', $name)->with('lastname', $lastname)->with('birthdate', $birthdate);
+    }
+
+    public function storeRecept(Request $request) {
+
+        $doc_id = Auth::user()->id;
+        $doc_info = DB::select("SELECT name, lastname FROM doctors WHERE user_id = '$doc_id'");
+        foreach($doc_info as $info) {
+            $doc_name = $info->name;
+            $doc_lastname = $info->lastname;
+        }
+
+        $this->validate($request, [
+            'name' => 'required',
+            'lastname' => 'required',
+            'birthdate' => 'required',
+            'substance' => 'required',
+            'quantity' => 'required',
+            'unit' => 'required',
+            'description' => 'required',
+            //'expired' => 'required',
+            //'termless' => 'required'
+        ]);
+
+        $recept = new Recept;
+        $recept->patient_name = $request->input('name');
+        $recept->patient_lastname = $request->input('lastname');
+        $recept->patient_birthdate = $request->input('birthdate');
+        $recept->substance = $request->input('substance');
+        $recept->quantity = $request->input('quantity');
+        $recept->measurement_unit = $request->input('unit');
+        $recept->description = $request->input('description');
+        if(empty($recept->validity = $request->input('expired'))) {
+            $recept->termless = $request->input('termless');
+        }
+        
+        $recept->doctor_name = $doc_name;
+        $recept->doctor_lastname = $doc_lastname;
+        $recept->save();
+
+        return redirect('doctors/patients_list')->with('success', 'Receptas uzregistruotas');
     }
 
     /**

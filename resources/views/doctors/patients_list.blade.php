@@ -13,7 +13,8 @@
         @foreach($doctor_patients as $all_patients)
         {{-- {{ $all_patients->patient_name }} {{ $all_patients->patient_lastname }} {{ $all_patients->patient_birthdate }} <a href="/patientlist/{{ $all_patients->id }}">ad</a> --}}
         {{ $all_patients->patient_name }} {{ $all_patients->patient_lastname }} {{ $all_patients->patient_birthdate }} <a href="/doctors/patients_list/recepts/{{ $all_patients->id }}">Perziureti paciento receptus</a>
-        || <a href="">Uzregistruoti pacienta vizitui</a> (no function) <br><br>
+        || <a href="/doctors/patients_list/create_record/{{ $all_patients->id }}">Uzregistruoti pacienta vizitui</a>  
+        || <a href="/doctors/patients_list/create_recept/{{ $all_patients->id }}">Israsyti pacientui nauja recepta</a> <br><br> 
         @endforeach
         @else
         <h3>Siuo metu nera jums priskirtu pacientu</h3>

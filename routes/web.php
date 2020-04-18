@@ -31,6 +31,11 @@ route::get('doctors/patients_list', 'PatientsListController@index');
 Route::get('doctors/patients_list/recepts/{id}', 'PatientsListController@show');
 
 Route::get('doctors/patients_list/recepts/recept_details/{id}', 'PatientsListController@receptDetails');
+Route::get('doctors/patients_list/create_record/{id}', 'PatientsListController@create')->name('fast_history_record');
+Route::post('doctors/patients_list/create_record/{id}', 'PatientsListController@store')->name('fast_history_record');
+
+Route::get('doctors/patients_list/create_recept/{id}', 'PatientsListController@createRecept')->name('fast_recept_record');
+Route::post('doctors/patients_list/create_recept/{id}', 'PatientsListController@storeRecept')->name('fast_recept_record');
 
 Route::get('pharmacists/index', 'PharmacistsController@index');
 Route::get('patients/index', 'PatientsController@index');
