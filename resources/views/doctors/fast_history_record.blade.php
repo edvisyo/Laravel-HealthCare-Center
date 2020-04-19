@@ -2,7 +2,7 @@
 @section('content')
     <div class="container">
         <h3>Greitas istorijos irasas pacientui: <small>{{ $name }} {{ $lastname }} {{ $birthdate }}</small></h3>
-
+        <a href="{{ url('doctors/patients_list') }}">Gryzti</a>
         {!! Form::open(['action.fast_history_record' => 'PatientsListController@store', 'method' => 'POST']) !!}
             <div class="form-group">
                 {{ Form::label('patient_name', 'Paciento vardas:') }}

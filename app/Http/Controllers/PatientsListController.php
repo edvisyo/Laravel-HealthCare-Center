@@ -24,12 +24,15 @@ class PatientsListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->get('search');
+        $data = DB::select("SELECT * FROM doctor_patients WHERE patient_name LIKE '%$search%' OR patient_lastname LIKE '%$search%' OR patient_birthdate LIKE '%$search%'");
+
         $current_doc_id = Auth::user()->id;
         $doctor_patients = DB::table('doctor_patients')->where(['doctor_id' => $current_doc_id]);
         $doctor_patients = $doctor_patients->get();
-        return view('doctors.patients_list')->with('doctor_patients', $doctor_patients);
+        return view('doctors.patients_list')->with('doctor_patients', $doctor_patients)->with('search', $search)->with('data', $data);
     }
 
     /**
@@ -57,6 +60,14 @@ class PatientsListController extends Controller
      */
     public function store(Request $request, $id)
     {
+
+        $patient = Doctor_patient::find($id)->where(['id' => $id])->get();
+        foreach($patient as $pat) {
+            $id = $pat->id;
+            $name = $pat->patient_name;
+            $lastname = $pat->patient_lastname;
+        }
+
         $doc_id = Auth::user()->id;
         $doc_info = DB::select("SELECT name, lastname FROM doctors WHERE user_id = '$doc_id'");
         foreach($doc_info as $info) {
@@ -86,7 +97,8 @@ class PatientsListController extends Controller
         //return redirect('/doctors/patients_list/create_record')->route('fast_history_record', ['id' => 2]);
         //return redirect('/doctors/patients_list/create_record')->action('PatientsListController@store');
 
-        return redirect('doctors/patients_list')->with('success', 'Uzregistruota'); //nepatinka route'as!!!
+        //return redirect('doctors/patients_list')->with('success', 'Uzregistruota'); //nepatinka route'as!!!
+        return redirect()->to('doctors/patients_list/create_record/'.$id)->with('success', 'Pacientas '.$name.' '.$lastname.' vizitui uzregistruotas');
     }
 
     /**
@@ -111,28 +123,10 @@ class PatientsListController extends Controller
 
     public function receptDetails($id) {
 
-        //return Recept::find($id)->where(['id' => $id])->get();
         $recept_detail = Recept::find($id)->where(['id' => $id])->get();
         return view('doctors.patient_recept_details')->with('recept_detail', $recept_detail);
     }
 
-
-    // public function createNewRecord(Request $request, $id) {
-
-    //     $patient = Doctor_patient::find($id)->where(['id' => $id])->get();
-    //     foreach($patient as $pat) {
-    //         $name = $pat->patient_name;
-    //         $lastname = $pat->patient_lastname;
-    //         $birthdate = $pat->patient_birthdate;
-    //     }
-
-    //     //$this->validate($request, [
-    //         //'tlk_10' => 'required'
-    //      //]);
-
-    //     return view('doctors.fast_history_record')->with('name', $name)->with('lastname', $lastname)->with('birthdate', $birthdate);
-
-    // }
 
     public function createRecept($id) {
         $patient = Doctor_patient::find($id)->where(['id' => $id])->get();
@@ -145,7 +139,12 @@ class PatientsListController extends Controller
         return view('doctors.fast_recept_record')->with('name', $name)->with('lastname', $lastname)->with('birthdate', $birthdate);
     }
 
-    public function storeRecept(Request $request) {
+    public function storeRecept(Request $request, $id) {
+
+        $patient = Doctor_patient::find($id)->where(['id' => $id])->get();
+        foreach($patient as $pat) {
+            $id = $pat->id;
+        }
 
         $doc_id = Auth::user()->id;
         $doc_info = DB::select("SELECT name, lastname FROM doctors WHERE user_id = '$doc_id'");
@@ -182,8 +181,18 @@ class PatientsListController extends Controller
         $recept->doctor_lastname = $doc_lastname;
         $recept->save();
 
-        return redirect('doctors/patients_list')->with('success', 'Receptas uzregistruotas');
+        return redirect()->to('doctors/patients_list/create_recept/'.$id)->with('success', 'Receptas uzregistruotas');
     }
+
+
+
+    //public function search(Request $request) {
+
+        //$search = $request->get('search');
+        //$data = DB::select("SELECT * FROM patients WHERE name LIKE '%$search%' OR lastname LIKE '%$search%' OR birthdate LIKE '%$search%' OR name + lastname LIKE '%$search%'");
+
+        //return view('doctors.patients_list')->with('search', $search)->with('data', $data);
+    //}
 
     /**
      * Show the form for editing the specified resource.

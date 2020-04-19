@@ -2,6 +2,7 @@
 @section('content')
     <div class="container">
         <h3>Sukurti nauja recepta pacientui <small>'{{ $name }} {{ $lastname }} {{ $birthdate }}'</small></h3>
+        <a href="{{ url('doctors/patients_list') }}">Gryzti</a>
         {!! Form::open(['action.fast_recept_record' => 'PatientsListController@storeRecept', 'method' => 'POST']) !!}
     <div class="form-row">
         <div class="form-group col-md-4">
