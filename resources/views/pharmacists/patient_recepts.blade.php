@@ -8,7 +8,8 @@
                 {{ $recept->patient_name }} {{ $recept->substance }}
             @endforeach
             @elseif(empty($recepts))
-            <h4>{{ $title }}</h4>
+            <h4>as</h4>
+            {{ $title }}
         @endif
     </div>
 @endsection

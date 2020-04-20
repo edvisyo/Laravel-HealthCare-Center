@@ -43,11 +43,13 @@
             <div class="first-col">
                 <img src="images/emergency.png" alt="" style="max-width: 100%; width: 55px; height: 85px;  padding: 10px 0px 10px 0px;">
                 <h3>SKUBŪS ATVEJAI</h3>
-                    <div class="asd" style="background-image: linear-gradient(to bottom, rgba(255,0,0,1), rgba(255,0,0,1)); z-index-1;">
+                    <div class="asd" style="">
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed felis ligula. 
                         Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
                         Morbi vel venenatis ante.</p>
-                        <a href="#">SKAITYTI DAUGIAU</a> <i class="fas fa-long-arrow-alt-right"></i>
+                        <div style="padding-bottom: 20px;">
+                        <a href="#" id="read_more_links">SKAITYTI DAUGIAU</a> <i class="fas fa-long-arrow-alt-right"></i>
+                        </div>
                     </div>
             </div>
         </div>
@@ -59,7 +61,9 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed felis ligula. 
                 Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
                 Morbi vel venenatis ante.</p>
-                <a href="#">SKAITYTI DAUGIAU</a> <i class="fas fa-long-arrow-alt-right"></i>
+                <div style="padding-bottom: 20px;">
+                <a href="#" id="read_more_links">SKAITYTI DAUGIAU</a> <i class="fas fa-long-arrow-alt-right"></i>
+                </div>
             </div>
         </div>
         <div class="col">
@@ -70,7 +74,9 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed felis ligula. 
                 Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
                 Morbi vel venenatis ante.</p>
-                <a href="#">SKAITYTI DAUGIAU</a> <i class="fas fa-long-arrow-alt-right"></i>
+                <div style="padding-bottom: 20px;">
+                <a href="#" id="read_more_links">SKAITYTI DAUGIAU</a> <i class="fas fa-long-arrow-alt-right"></i>
+                </div>
             </div>
         </div>
         <div class="col">
@@ -80,7 +86,9 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed felis ligula. 
                 Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
                 Morbi vel venenatis ante.</p>
-                <a href="#">SKAITYTI DAUGIAU</a> <i class="fas fa-long-arrow-alt-right"></i>
+                <div style="padding-bottom: 20px;">
+                <a href="#" id="read_more_links">SKAITYTI DAUGIAU</a> <i class="fas fa-long-arrow-alt-right"></i>
+                </div>
             </div>
         </div>
       </div>
@@ -141,7 +149,7 @@
                             <h3>KVALIFIKUOTI GYDYTOJAI</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed felis ligula. 
                             Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-                            <a href="#">ŽIŪRĖTI DETALIAU</a>
+                            <a href="#" id="read_more">ŽIŪRĖTI DETALIAU</a>
                         </div>
                     </div>
                 </div>
