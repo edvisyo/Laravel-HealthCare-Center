@@ -105,6 +105,19 @@
                 <div class="row">
                     <div class="col">
                         <h5>KONTAKTAI</h5>
+                        <p>Mus taip pat galite rasti:</p>
+                        <div>
+                            <a href="">Facebook</a>
+                        </div>
+                        <div>
+                            <a href="">Instagram</a>
+                        </div>
+                        <div>
+                            <a href="">Linked In</a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h5>PASLAUGOS</h5>
                         <ul>
                             <li>1</li>
                             <li>2</li>
@@ -113,31 +126,31 @@
                         </ul>
                     </div>
                     <div class="col">
-                        <h5>KONTAKTAI</h5>
-                        <ul>
-                            <li>1</li>
-                            <li>2</li>
-                            <li>3</li>
-                            <li>4</li>
-                        </ul>
+                        <h5>SCIALINE MEDIA</h5>
+                        <p>Mus taip pat galite rasti:</p>
+                        <div style="margin-bottom: 5px;">
+                            <a href="">Facebook <i class="fab fa-facebook-square fa-lg"></i></a>
+                        </div>
+                        <div style="margin-bottom: 5px;">
+                            <a href="">Instagram <i class="fab fa-instagram-square fa-lg"></i></a>
+                        </div>
+                        <div>
+                            <a href="">Linked In <i class="fab fa-linkedin fa-lg"></i></a>
+                        </div>
                     </div>
                     <div class="col">
-                        <h5>KONTAKTAI</h5>
-                        <ul>
-                            <li>1</li>
-                            <li>2</li>
-                            <li>3</li>
-                            <li>4</li>
-                        </ul>
-                    </div>
-                    <div class="col">
-                        <h5>KONTAKTAI</h5>
-                        <ul>
-                            <li>1</li>
-                            <li>2</li>
-                            <li>3</li>
-                            <li>4</li>
-                        </ul>
+                        <h5>SUSISIEKIME</h5>
+                        <p>Cia mums galite parasyti greita uzklausa iskilus klausimams:</p>
+                        <form action="{{ url('/send')}}" method="POST">
+                            {{ csrf_field() }}
+                        <div class="form-group">
+                            <input type="email" name="title" class="form-control" placeholder="Jusu elektroninis pastas">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" name="body" placeholder="Jusu pranesimas.." rows="4"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-secondary">SIUSITI</button>
+                        </form>
                     </div>
                 </div>
             </div>

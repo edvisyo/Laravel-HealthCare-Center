@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,23 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', 'PagesController@index');
+
+// Route::get('/send-mail', function(Request $request) {
+//     $details = [
+//         'title' => '',
+//         'body' => 'asd'
+//     ];
+//     \Mail::to('salminas@gmail.com')->send(new \App\Mail\TestMail($details));
+//     return redirect('/');
+//     echo '<script>alert("Jusu zinute isiusta sekmingai!")</script>';
+// });
+
+// Route::get('/sendemail', 'SendEmailController@index');
+// Route::post('/sendemail/send', 'SendEmailController@send');
+
+Route::get('/', 'SendEmailController@index');
+Route::post('/send', 'SendEmailController@send');
+
 Route::get('/darbuotojai', 'PagesController@employees')->name('darbuotojai');
 Route::get('/kontaktai', 'PagesController@contacts')->name('kontaktai');
 Route::get('/paslaugos', 'PagesController@services')->name('paslaugos');
